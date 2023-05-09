@@ -1,5 +1,6 @@
 ﻿using ChapterFS14.Models;
 using ChapterFS14.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ namespace ChapterFS14.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LivroController : ControllerBase
     {
         private readonly LivroRepository _livroRepository;
@@ -55,6 +57,8 @@ namespace ChapterFS14.Controllers
                 throw new Exception(e.Message);
             }
         }
+
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Livro l)
         {
